@@ -1,3 +1,16 @@
+// MIXINS
+@mixin w-h($w: 50px, $h: 50px) {
+  width: $w;
+  height: $h;
+}
+
+@mixin flexbox($fd: row, $ai: center, $jc: center) {
+  display: flex;
+  flex-direction: $fd;
+  align-items: $ai;
+  justify-content: $jc;
+}
+
 * {
   box-sizing: border-box;
   padding: 0;
@@ -9,8 +22,7 @@ body {
 }
 
 .timer {
-  width: 100px;
-  height: 50px;
+  @include w-h(100px, 50px);
   font-size: 50px;
   color: white;
   position: fixed;
@@ -21,8 +33,7 @@ body {
 }
 
 .start {
-  width: 150px;
-  height: 50px;
+  @include w-h(150px, 50px);
   position: fixed;
   bottom: 5%;
   left: 50%;
@@ -35,8 +46,7 @@ body {
 }
 
 .tile-container {
-  width: 600px;
-  height: 600px;
+  @include w-h(600px, 600px);
   border: solid 5px white;
   background-color: white;
   position: fixed;
@@ -46,18 +56,13 @@ body {
   display: grid;
   grid-template-columns: repeat(3, auto);
   grid-template-rows: repeat(3, auto);
-  -moz-column-gap: 5px;
-       column-gap: 5px;
+  column-gap: 5px;
   row-gap: 5px;
 }
 
 .tile {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
+  @include w-h(100%, 100%);
+  @include flexbox($ai: center, $jc: center);
   border: solid 5px transparent;
   background-color: black;
   color: white;
@@ -75,14 +80,12 @@ body {
 }
 
 .rules {
-  width: 30px;
-  height: 30px;
+  @include w-h(30px, 30px);
   border: solid 2px white;
   border-radius: 50%;
-  -o-object-fit: contain;
-     object-fit: contain;
+  object-fit: contain;
   position: fixed;
   top: 20px;
   right: 20px;
   cursor: pointer;
-}/*# sourceMappingURL=App.css.map */
+}
