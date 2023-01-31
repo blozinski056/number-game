@@ -22,7 +22,7 @@ body {
 }
 
 .timer {
-  @include w-h(100px, 50px);
+  @include w-h(200px, 50px);
   font-size: 50px;
   color: white;
   position: fixed;
@@ -32,7 +32,8 @@ body {
   text-align: center;
 }
 
-.start {
+.start,
+.stop {
   @include w-h(150px, 50px);
   position: fixed;
   bottom: 5%;
