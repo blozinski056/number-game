@@ -1,13 +1,14 @@
 import React from "react";
 
 interface Props {
-  value: number | null;
+  value: number;
   index: number;
+  swapTiles: (i: number) => void;
 }
 
-const Tiles: React.FC<Props> = ({ value, index }) => {
+const Tiles: React.FC<Props> = ({ value, index, swapTiles }) => {
   return (
-    <div className="tile">
+    <div className="tile" onClick={() => swapTiles(index)}>
       <span>{value}</span>
     </div>
   );
