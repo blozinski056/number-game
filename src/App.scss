@@ -55,8 +55,8 @@ body {
   left: 50%;
   transform: translate(-50%, -50%);
   display: grid;
-  grid-template-columns: repeat(3, auto);
-  grid-template-rows: repeat(3, auto);
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
   column-gap: 5px;
   row-gap: 5px;
 }
@@ -69,6 +69,13 @@ body {
   color: white;
   font-size: 70px;
   cursor: pointer;
+  user-select: none;
+}
+
+.blank-tile {
+  @include w-h(100%, 100%);
+  border: solid 5px transparent;
+  background-color: white;
 }
 
 .hidden {
@@ -89,4 +96,13 @@ body {
   top: 20px;
   right: 20px;
   cursor: pointer;
+}
+
+.rules-dropdown {
+  @include w-h(200px, 200px);
+  border: solid 2px white;
+  position: fixed;
+  top: 60px;
+  right: 20px;
+  color: white;
 }

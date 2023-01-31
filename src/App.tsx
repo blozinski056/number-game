@@ -1,21 +1,53 @@
-import React, { useState, useEffect, useMemo } from "react";
+import React, { useState, useMemo } from "react";
 import "./App.css";
 
 import Tiles from "./components/Tiles";
+import BlankTile from "./components/BlankTile";
 import { nanoid } from "nanoid";
 
 const App = () => {
   const [time, setTime] = useState<string>("000.000");
   const [buttonState, setButtonState] = useState<number>(0);
+  const [rules, setRules] = useState<boolean>(false);
   const [intervalID, setIntervalID] = useState<NodeJS.Timer>();
+
+  const getNewNums = () => {
+    let nums: number[] = [];
+
+    for (let i = 0; i < 8; i++) {
+      let random = Math.ceil(Math.random() * 8);
+
+      while (true) {
+        if (nums.includes(random)) {
+          random = Math.ceil(Math.random() * 8);
+        } else {
+          nums.push(random);
+          break;
+        }
+      }
+    }
+
+    nums.push(-1);
+
+    return nums;
+  };
+
+  const [randomNums, setRandomNums] = useState<number[]>(getNewNums());
+  let tiles: React.ReactElement[] = randomNums.map((val, i = -1) => {
+    if (val === -1) {
+      return <BlankTile key={nanoid()} index={i++} />;
+    }
+    return <Tiles key={nanoid()} value={val} index={i++} />;
+  });
 
   const startGame = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.preventDefault();
 
     setButtonState(1);
-    // let elm = document.querySelector(".start");
-    // elm?.setAttribute("disabled", "");
-    // elm?.classList.add("disabled");
+
+    if (buttonState !== 0) {
+      setRandomNums(getNewNums);
+    }
 
     const startTime = new Date().getTime();
     setIntervalID(
@@ -61,35 +93,10 @@ const App = () => {
     clearInterval(intervalID);
   };
 
-  // const restartGame = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-  //   e.preventDefault();
-  //   clearInterval(intervalID);
-  //   startGame(e);
-  // };
-
-  const getNewNums = () => {
-    let nums: number[] = [];
-
-    for (let i = 0; i < 8; i++) {
-      let random = Math.ceil(Math.random() * 8);
-
-      while (true) {
-        if (nums.includes(random)) {
-          random = Math.ceil(Math.random() * 8);
-        } else {
-          nums.push(random);
-          break;
-        }
-      }
-    }
-
-    return nums;
+  const showRules = (e: React.MouseEvent<HTMLImageElement, MouseEvent>) => {
+    e.preventDefault();
+    setRules((prevRules) => !prevRules);
   };
-
-  let randomNums: number[] = useMemo(() => getNewNums(), []);
-  let tiles: React.ReactElement[] = randomNums.map((val) => {
-    return <Tiles key={nanoid()} value={val} />;
-  });
 
   return (
     <>
@@ -101,11 +108,27 @@ const App = () => {
       )}
       {buttonState === 1 && (
         <button className="stop" onClick={(e) => stopGame(e)}>
-          Stop!
+          Stop
         </button>
       )}
       <div className="tile-container">{tiles}</div>
-      <img src="/images/question.png" alt="" className="rules" />
+      <img
+        src="/images/question.png"
+        alt=""
+        className="rules"
+        onClick={(e) => showRules(e)}
+      />
+      {rules && (
+        <div className="rules-dropdown">
+          <ul>
+            <li>
+              Rearrange the numbers in order with "1" and the blank tile in
+              opposite corners
+            </li>
+            <li></li>
+          </ul>
+        </div>
+      )}
     </>
   );
 };
