@@ -15,6 +15,7 @@
   box-sizing: border-box;
   padding: 0;
   margin: 0;
+  font-family: "Mulish", sans-serif;
 }
 
 body {
@@ -30,6 +31,7 @@ body {
   left: 50%;
   transform: translateX(-50%);
   text-align: center;
+  letter-spacing: 5px;
 }
 
 .start,
@@ -46,8 +48,78 @@ body {
   cursor: pointer;
 }
 
+@media (min-height: 800px) and (min-width: 800px) {
+  .tile-container {
+    @include w-h(600px, 600px);
+  }
+}
+
+@media (max-height: 799px) and (min-height: 600px) {
+  .tile-container {
+    @include w-h(400px, 400px);
+  }
+}
+
+@media (max-width: 799px) and (min-width: 600px) {
+  .tile-container {
+    @include w-h(400px, 400px);
+  }
+}
+
+@media (min-height: 600px) {
+  .tile {
+    font-size: 70px;
+  }
+
+  .rules-dropdown {
+    @include w-h(500px, 500px);
+    font-size: 20px;
+
+    img {
+      @include w-h(200px, 200px);
+    }
+  }
+}
+
+@media (max-height: 599px) {
+  .tile-container {
+    @include w-h(300px, 300px);
+  }
+
+  .tile {
+    font-size: 50px;
+  }
+
+  .rules-dropdown {
+    @include w-h(300px, 300px);
+    font-size: 10px;
+
+    img {
+      @include w-h(100px, 100px);
+    }
+  }
+}
+
+@media (max-width: 599px) {
+  .tile-container {
+    @include w-h(300px, 300px);
+  }
+
+  .tile {
+    font-size: 50px;
+  }
+
+  .rules-dropdown {
+    @include w-h(300px, 300px);
+    font-size: 10px;
+
+    img {
+      @include w-h(100px, 100px);
+    }
+  }
+}
+
 .tile-container {
-  @include w-h(600px, 600px);
   border: solid 5px white;
   background-color: white;
   position: fixed;
@@ -67,7 +139,6 @@ body {
   border: solid 5px transparent;
   background-color: black;
   color: white;
-  font-size: 70px;
   cursor: pointer;
   user-select: none;
 }
@@ -99,10 +170,38 @@ body {
 }
 
 .rules-dropdown {
-  @include w-h(200px, 200px);
+  @include flexbox($fd: column, $jc: space-evenly);
   border: solid 2px white;
   position: fixed;
-  top: 60px;
-  right: 20px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   color: white;
+  padding: 10px;
+  background-color: black;
+  z-index: 10;
+  cursor: default;
+
+  ul {
+    list-style: none;
+  }
+
+  div {
+    justify-self: center;
+
+    img {
+      // @include w-h(200px, 200px);
+      object-fit: contain;
+      margin: 10px;
+    }
+  }
+}
+
+.overlay {
+  @include w-h(100%, 100%);
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 5;
 }

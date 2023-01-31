@@ -2,6 +2,7 @@
   box-sizing: border-box;
   padding: 0;
   margin: 0;
+  font-family: "Mulish", sans-serif;
 }
 
 body {
@@ -18,6 +19,7 @@ body {
   left: 50%;
   transform: translateX(-50%);
   text-align: center;
+  letter-spacing: 5px;
 }
 
 .start,
@@ -35,9 +37,75 @@ body {
   cursor: pointer;
 }
 
+@media (min-height: 800px) and (min-width: 800px) {
+  .tile-container {
+    width: 600px;
+    height: 600px;
+  }
+}
+@media (max-height: 799px) and (min-height: 600px) {
+  .tile-container {
+    width: 400px;
+    height: 400px;
+  }
+}
+@media (max-width: 799px) and (min-width: 600px) {
+  .tile-container {
+    width: 400px;
+    height: 400px;
+  }
+}
+@media (min-height: 600px) {
+  .tile {
+    font-size: 70px;
+  }
+  .rules-dropdown {
+    width: 500px;
+    height: 500px;
+    font-size: 20px;
+  }
+  .rules-dropdown img {
+    width: 200px;
+    height: 200px;
+  }
+}
+@media (max-height: 599px) {
+  .tile-container {
+    width: 300px;
+    height: 300px;
+  }
+  .tile {
+    font-size: 50px;
+  }
+  .rules-dropdown {
+    width: 300px;
+    height: 300px;
+    font-size: 10px;
+  }
+  .rules-dropdown img {
+    width: 100px;
+    height: 100px;
+  }
+}
+@media (max-width: 599px) {
+  .tile-container {
+    width: 300px;
+    height: 300px;
+  }
+  .tile {
+    font-size: 50px;
+  }
+  .rules-dropdown {
+    width: 300px;
+    height: 300px;
+    font-size: 10px;
+  }
+  .rules-dropdown img {
+    width: 100px;
+    height: 100px;
+  }
+}
 .tile-container {
-  width: 600px;
-  height: 600px;
   border: solid 5px white;
   background-color: white;
   position: fixed;
@@ -62,7 +130,6 @@ body {
   border: solid 5px transparent;
   background-color: black;
   color: white;
-  font-size: 70px;
   cursor: pointer;
   -webkit-user-select: none;
      -moz-user-select: none;
@@ -100,11 +167,39 @@ body {
 }
 
 .rules-dropdown {
-  width: 200px;
-  height: 200px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
   border: solid 2px white;
   position: fixed;
-  top: 60px;
-  right: 20px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   color: white;
+  padding: 10px;
+  background-color: black;
+  z-index: 10;
+  cursor: default;
+}
+.rules-dropdown ul {
+  list-style: none;
+}
+.rules-dropdown div {
+  justify-self: center;
+}
+.rules-dropdown div img {
+  -o-object-fit: contain;
+     object-fit: contain;
+  margin: 10px;
+}
+
+.overlay {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 5;
 }/*# sourceMappingURL=App.css.map */
