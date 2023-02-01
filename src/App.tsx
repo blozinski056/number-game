@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback, useEffect } from "react";
 import "./App.css";
 
 import Tiles from "./components/Tiles";
@@ -12,6 +12,7 @@ const App = () => {
   const [rules, setRules] = useState<boolean>(true);
   const [blankIndex, setBlankIndex] = useState<number>(8);
   const [play, setPlay] = useState<boolean>(false);
+  const [win, setWin] = useState<boolean>(false);
 
   // get random numbers between 1 and 8
   const getNewNums = useCallback(() => {
@@ -33,8 +34,8 @@ const App = () => {
   }, []);
 
   // state to keep track of numbers
-  const [nums, setNums] = useState<number[]>(getNewNums());
-  // const [nums, setNums] = useState<number[]>([1, 4, 7, 2, 5, 8, 3, 6, -1]);
+  // const [nums, setNums] = useState<number[]>(getNewNums());
+  const [nums, setNums] = useState<number[]>([1, 4, 7, 2, 5, 8, 3, 6, -1]);
 
   // swap tile with blank tile
   const swapTiles = (i: number) => {
@@ -60,125 +61,91 @@ const App = () => {
 
   // check if win
   const checkWin = () => {
-    // 1 at i=0, right
     if (
-      nums[0] === 1 &&
-      nums[1] === 2 &&
-      nums[2] === 3 &&
-      nums[3] === 4 &&
-      nums[4] === 5 &&
-      nums[5] === 6 &&
-      nums[6] === 7 &&
-      nums[7] === 8 &&
-      nums[8] === -1
+      // 1 at i=0, right
+      (nums[0] === 1 &&
+        nums[1] === 2 &&
+        nums[2] === 3 &&
+        nums[3] === 4 &&
+        nums[4] === 5 &&
+        nums[5] === 6 &&
+        nums[6] === 7 &&
+        nums[7] === 8 &&
+        nums[8] === -1) ||
+      // 1 at i=0, down
+      (nums[0] === 1 &&
+        nums[1] === 4 &&
+        nums[2] === 7 &&
+        nums[3] === 2 &&
+        nums[4] === 5 &&
+        nums[5] === 8 &&
+        nums[6] === 3 &&
+        nums[7] === 6 &&
+        nums[8] === -1) ||
+      // 1 at i=2, left
+      (nums[0] === 3 &&
+        nums[1] === 2 &&
+        nums[2] === 1 &&
+        nums[3] === 6 &&
+        nums[4] === 5 &&
+        nums[5] === 4 &&
+        nums[6] === -1 &&
+        nums[7] === 8 &&
+        nums[8] === 7) ||
+      // 1 at i=2, down
+      (nums[0] === 7 &&
+        nums[1] === 4 &&
+        nums[2] === 1 &&
+        nums[3] === 8 &&
+        nums[4] === 5 &&
+        nums[5] === 2 &&
+        nums[6] === -1 &&
+        nums[7] === 6 &&
+        nums[8] === 3) ||
+      // 1 at i=6, right
+      (nums[0] === 7 &&
+        nums[1] === 8 &&
+        nums[2] === -1 &&
+        nums[3] === 4 &&
+        nums[4] === 5 &&
+        nums[5] === 6 &&
+        nums[6] === 1 &&
+        nums[7] === 2 &&
+        nums[8] === 3) ||
+      // 1 at i=6, up
+      (nums[0] === 3 &&
+        nums[1] === 6 &&
+        nums[2] === -1 &&
+        nums[3] === 2 &&
+        nums[4] === 5 &&
+        nums[5] === 8 &&
+        nums[6] === 1 &&
+        nums[7] === 4 &&
+        nums[8] === 7) ||
+      // 1 at i=8, left
+      (nums[0] === -1 &&
+        nums[1] === 8 &&
+        nums[2] === 7 &&
+        nums[3] === 6 &&
+        nums[4] === 5 &&
+        nums[5] === 4 &&
+        nums[6] === 3 &&
+        nums[7] === 2 &&
+        nums[8] === 1) ||
+      // 1 at i=8, up
+      (nums[0] === -1 &&
+        nums[1] === 6 &&
+        nums[2] === 3 &&
+        nums[3] === 8 &&
+        nums[4] === 5 &&
+        nums[5] === 2 &&
+        nums[6] === 7 &&
+        nums[7] === 4 &&
+        nums[8] === 1)
     ) {
       setPlay(false);
       setButtonState(2);
-    }
-    // 1 at i=0, down
-    else if (
-      nums[0] === 1 &&
-      nums[1] === 4 &&
-      nums[2] === 7 &&
-      nums[3] === 2 &&
-      nums[4] === 5 &&
-      nums[5] === 8 &&
-      nums[6] === 3 &&
-      nums[7] === 6 &&
-      nums[8] === -1
-    ) {
-      setPlay(false);
-      setButtonState(2);
-    }
-    // 1 at i=2, left
-    else if (
-      nums[0] === 3 &&
-      nums[1] === 2 &&
-      nums[2] === 1 &&
-      nums[3] === 6 &&
-      nums[4] === 5 &&
-      nums[5] === 4 &&
-      nums[6] === -1 &&
-      nums[7] === 8 &&
-      nums[8] === 7
-    ) {
-      setPlay(false);
-      setButtonState(2);
-    }
-    // 1 at i=2, down
-    else if (
-      nums[0] === 7 &&
-      nums[1] === 4 &&
-      nums[2] === 1 &&
-      nums[3] === 8 &&
-      nums[4] === 5 &&
-      nums[5] === 2 &&
-      nums[6] === -1 &&
-      nums[7] === 6 &&
-      nums[8] === 3
-    ) {
-      setPlay(false);
-      setButtonState(2);
-    }
-    // 1 at i=6, right
-    else if (
-      nums[0] === 7 &&
-      nums[1] === 8 &&
-      nums[2] === -1 &&
-      nums[3] === 4 &&
-      nums[4] === 5 &&
-      nums[5] === 6 &&
-      nums[6] === 1 &&
-      nums[7] === 2 &&
-      nums[8] === 3
-    ) {
-      setPlay(false);
-      setButtonState(2);
-    }
-    // 1 at i=6, up
-    else if (
-      nums[0] === 3 &&
-      nums[1] === 6 &&
-      nums[2] === -1 &&
-      nums[3] === 2 &&
-      nums[4] === 5 &&
-      nums[5] === 8 &&
-      nums[6] === 1 &&
-      nums[7] === 4 &&
-      nums[8] === 7
-    ) {
-      setPlay(false);
-      setButtonState(2);
-    }
-    // 1 at i=8, left
-    else if (
-      nums[0] === -1 &&
-      nums[1] === 8 &&
-      nums[2] === 7 &&
-      nums[3] === 6 &&
-      nums[4] === 5 &&
-      nums[5] === 4 &&
-      nums[6] === 3 &&
-      nums[7] === 2 &&
-      nums[8] === 1
-    ) {
-      setPlay(false);
-      setButtonState(2);
-    }
-    // 1 at i=8, up
-    else if (
-      nums[0] === -1 &&
-      nums[1] === 6 &&
-      nums[2] === 3 &&
-      nums[3] === 8 &&
-      nums[4] === 5 &&
-      nums[5] === 2 &&
-      nums[6] === 7 &&
-      nums[7] === 4 &&
-      nums[8] === 1
-    ) {
-      setPlay(false);
-      setButtonState(2);
+      setWin(true);
     }
   };
 
@@ -204,6 +171,7 @@ const App = () => {
       setNums(getNewNums());
       setBlankIndex(8);
       tiles = getNewTiles();
+      setWin(false);
     }
     setButtonState(1);
     setPlay(true);
@@ -260,6 +228,7 @@ const App = () => {
           onClick={() => setRules((prevRules) => !prevRules)}
         ></div>
       )}
+      {win && <div className="win">You Won!</div>}
     </>
   );
 };

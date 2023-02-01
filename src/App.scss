@@ -205,3 +205,19 @@ body {
   background-color: rgba(0, 0, 0, 0.5);
   z-index: 5;
 }
+
+.win {
+  @include w-h(350px, 100px);
+  @include flexbox;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  border: solid 2px black;
+  color: black;
+  font-size: 30px;
+  font-weight: 900;
+  user-select: none;
+  z-index: 3;
+}
