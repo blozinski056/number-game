@@ -34,8 +34,8 @@ const App = () => {
   }, []);
 
   // state to keep track of numbers
-  // const [nums, setNums] = useState<number[]>(getNewNums());
-  const [nums, setNums] = useState<number[]>([1, 4, 7, 2, 5, 8, 3, 6, -1]);
+  const [nums, setNums] = useState<number[]>(getNewNums());
+  // const [nums, setNums] = useState<number[]>([1, 4, 7, 2, 5, 8, 3, 6, -1]);
 
   // swap tile with blank tile
   const swapTiles = (i: number) => {
