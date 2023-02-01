@@ -239,9 +239,9 @@ const App = () => {
         <div className="rules-dropdown">
           <p>
             Goal: <br />
-            Re-arrange the tiles so that they look like any orientation of the
-            following examples, where "1" and the blank tile are in opposite
-            corners
+            Re-arrange the tiles so that they are in order with "1" and the
+            blank tile in opposite corners. Solutions can be any rotation of the
+            examples below ("1" can start in any corner).
           </p>
           <div>
             <img src="/images/solution1.jpg" alt="" />
@@ -250,7 +250,7 @@ const App = () => {
           <p>
             How: <br />
             Click on a tile to move it to the blank space. The tile must be
-            adjacent, not including diagonal
+            adjacent to the blank space, not including diagonal adjacency
           </p>
         </div>
       )}
