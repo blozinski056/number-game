@@ -1,14 +1,9 @@
-import React, { useState, useEffect, useCallback } from "react";
-
-// interface Props {
-//   time: string;
-// }
+import React, { useState, useEffect } from "react";
 
 interface Props {
   play: boolean;
 }
 
-// const Timer: React.FC<Props> = ({ time }) => {
 const Timer: React.FC<Props> = ({ play }) => {
   const [time, setTime] = useState<string>("000.000");
   const [intervalID, setIntervalID] = useState<NodeJS.Timer>();
@@ -51,10 +46,12 @@ const Timer: React.FC<Props> = ({ play }) => {
           setTime("".concat(timeString1, timeString2));
         })
       );
-    } else {
-      clearInterval(intervalID);
     }
   }, [play]);
+
+  if (!play) {
+    clearInterval(intervalID);
+  }
 
   return <div className="timer">{time}</div>;
 };
